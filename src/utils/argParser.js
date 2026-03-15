@@ -296,7 +296,7 @@ export function parseLine(line) {
 
     //console.log("Required args ", receivedCommandReqArguments);
     //console.log("Received args ", receivedArguments);
-    console.log("Active command ", activeCommand, " isValid ", isCommandValid);
+    //console.log("Active command ", activeCommand, " isValid ", isCommandValid);
   } else {
     //command is not from the list = invalid command
     isCommandValid = false;

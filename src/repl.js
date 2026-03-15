@@ -25,7 +25,6 @@ export function repl(state) {
         console.log("Operation failed");
       }
     }
-
     rl.prompt();
   });
 
