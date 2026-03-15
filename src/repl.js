@@ -22,7 +22,7 @@ export function repl(state) {
           state,
         );
       } catch (error) {
-        console.log("Operation failed");
+        console.log("Operation failed (command operation)", error);
       }
     }
     rl.prompt();

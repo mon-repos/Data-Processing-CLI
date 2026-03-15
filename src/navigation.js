@@ -1,7 +1,7 @@
 //navigation.js    — navigation commands (up, cd, ls)
 
 import { pathResolve } from "./utils/pathResolver.js";
-import * as fs from "node:fs/promises";
+import * as fsp from "node:fs/promises";
 
 export async function up(args, state) {
   state.currentDirectory = await pathResolve(state.currentDirectory, "..");
@@ -12,11 +12,11 @@ export async function cd(args, state) {
   let newPath = await pathResolve(state.currentDirectory, args.pathname);
 
   try {
-    await fs.stat(newPath);
+    await fsp.stat(newPath);
     state.currentDirectory = newPath;
     console.log(state.currentDirectory);
   } catch (error) {
-    console.log("Operation failed");
+    console.log("Operation failed (path does not exist)");
   }
 }
 
@@ -24,7 +24,7 @@ export async function ls(args, state) {
   let fileList = [];
   let maxLength = 0;
   let dirList = [];
-  let entries = await fs.readdir(state.currentDirectory, {
+  let entries = await fsp.readdir(state.currentDirectory, {
     withFileTypes: true,
   });
   for (let i = 0; i < entries.length; i++) {
