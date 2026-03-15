@@ -12,9 +12,20 @@ export function repl(state) {
 
   rl.prompt();
 
-  rl.on("line", (line) => {
-    let activeCommand = parseLine(line);
-    console.log(activeCommand.name);
+  rl.on("line", async (line) => {
+    const activeCommand = parseLine(line);
+    if (activeCommand.name !== "none") {
+      try {
+        const commandModule = await import(activeCommand.functionPath);
+        await commandModule[activeCommand.functionName](
+          activeCommand.arguments,
+          state,
+        );
+      } catch (error) {
+        console.log("Operation failed");
+      }
+    }
+
     rl.prompt();
   });
 

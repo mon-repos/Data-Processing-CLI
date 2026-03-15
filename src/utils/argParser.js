@@ -2,8 +2,18 @@
 
 // commands array of objects {key, arguments [{name, isMust, key, hasValue}]}
 const commands = [
-  { keyName: "up", arguments: [] },
-  { keyName: "ls", arguments: [] },
+  {
+    keyName: "up",
+    arguments: [],
+    functionPath: "./navigation.js",
+    functionName: "up",
+  },
+  {
+    keyName: "ls",
+    arguments: [],
+    functionPath: "./navigation.js",
+    functionName: "ls",
+  },
   {
     keyName: "cd",
     arguments: [
@@ -15,6 +25,8 @@ const commands = [
         position: 2,
       },
     ],
+    functionPath: "./navigation.js",
+    functionName: "cd",
   },
   {
     keyName: "csv-to-json",
@@ -32,6 +44,8 @@ const commands = [
         hasValue: true,
       },
     ],
+    functionPath: "./commands/csvToJson.js",
+    functionName: "csvToJson",
   },
   {
     keyName: "json-to-csv",
@@ -49,6 +63,8 @@ const commands = [
         hasValue: true,
       },
     ],
+    functionPath: "./commands/jsonToCsv.js",
+    functionName: "jsonToCsv",
   },
   {
     keyName: "count",
@@ -60,6 +76,8 @@ const commands = [
         hasValue: true,
       },
     ],
+    functionPath: "./commands/count.js",
+    functionName: "count",
   },
   {
     keyName: "hash",
@@ -83,6 +101,8 @@ const commands = [
         hasValue: false,
       },
     ],
+    functionPath: "./commands/hash.js",
+    functionName: "hash",
   },
   {
     keyName: "hash-compare",
@@ -106,6 +126,8 @@ const commands = [
         hasValue: true,
       },
     ],
+    functionPath: "./commands/hashCompare.js",
+    functionName: "hashCompare",
   },
   {
     keyName: "encrypt",
@@ -129,6 +151,8 @@ const commands = [
         hasValue: true,
       },
     ],
+    functionPath: "./commands/encrypt.js",
+    functionName: "encrypt",
   },
   {
     keyName: "decrypt",
@@ -152,6 +176,8 @@ const commands = [
         hasValue: true,
       },
     ],
+    functionPath: "./commands/decrypt.js",
+    functionName: "decrypt",
   },
   {
     keyName: "log-stats",
@@ -169,6 +195,8 @@ const commands = [
         hasValue: true,
       },
     ],
+    functionPath: "./commands/logStats.js",
+    functionName: "logStats",
   },
 ];
 
@@ -187,6 +215,8 @@ export function parseLine(line) {
     activeCommand = {
       name: lineArguments[0],
       arguments: {},
+      functionPath: commands[curCommandNum].functionPath,
+      functionName: commands[curCommandNum].functionName,
     };
 
     // a list of argument required for the received command
@@ -273,7 +303,9 @@ export function parseLine(line) {
   }
   if (!isCommandValid) {
     console.log("Invalid input");
-    activeCommand.name = "none";
+    activeCommand = {
+      name: "none",
+    };
   }
   return activeCommand;
 }
