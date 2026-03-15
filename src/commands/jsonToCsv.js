@@ -71,4 +71,5 @@ export async function jsonToCsv(args, state) {
   } catch (error) {
     console.log("Operation failed (stream operation)");
   }
+  console.log(`You are currently in ${state.currentDirectory}`);
 }

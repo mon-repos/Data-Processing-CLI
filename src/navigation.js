@@ -5,7 +5,7 @@ import * as fsp from "node:fs/promises";
 
 export async function up(args, state) {
   state.currentDirectory = await pathResolve(state.currentDirectory, "..");
-  console.log(state.currentDirectory);
+  console.log(`You are currently in ${state.currentDirectory}`);
 }
 
 export async function cd(args, state) {
@@ -14,7 +14,7 @@ export async function cd(args, state) {
   try {
     await fsp.stat(newPath);
     state.currentDirectory = newPath;
-    console.log(state.currentDirectory);
+    console.log(`You are currently in ${state.currentDirectory}`);
   } catch (error) {
     console.log("Operation failed (path does not exist)");
   }
@@ -48,5 +48,5 @@ export async function ls(args, state) {
     let line = file + " ".repeat(maxLength - file.length + 2) + "[file]";
     console.log(line);
   }
-  console.log(state.currentDirectory);
+  console.log(`You are currently in ${state.currentDirectory}`);
 }
